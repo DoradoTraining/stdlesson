@@ -1,0 +1,8 @@
+{
+	"sql-addon": {
+		"url": "jdbc:mysql://localhost:3306/standardlesson?useUnicode=true&amp;characterEncoding=utf8",
+		"driver": "com.mysql.jdbc.Driver",
+		"username": "root", "password": "root"
+	}
+}
+
