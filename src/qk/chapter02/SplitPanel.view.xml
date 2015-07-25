@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<SplitPanel>
+			<Property name="collapsed">true</Property>
+			<Property name="position">200</Property>
+			<MainControl>
+				<Label>
+					<Property name="text">主空间</Property>
+				</Label>
+			</MainControl>
+			<SideControl>
+				<Label>
+					<Property name="text">边空间</Property>
+				</Label>
+			</SideControl>
+		</SplitPanel>
+	</View>
+</ViewConfig>

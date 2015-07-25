@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<ToolBar>
+			<ToolBarLabel>
+				<Property name="text">Dorado7快速入门</Property>
+			</ToolBarLabel>
+			<Fill/>
+			<ToolBarButton>
+				<Property name="icon"> url(&gt;skin&gt;common/icons.gif) -100px -20px</Property>
+				<Property name="menu">menu1</Property>
+			</ToolBarButton>
+		</ToolBar>
+		<SplitPanel>
+			<MainControl/>
+			<SideControl/>
+		</SplitPanel>
+		<Menu id="menu1">
+			<MenuItem>
+				<Property name="caption">Help</Property>
+				<ClientEvent name="onClick" signature="self,arg">window.open(&quot;http://www.bsdn.org&quot;);</ClientEvent>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">About</Property>
+				<ClientEvent name="onClick" signature="self,arg">dorado.MessageBox.alert(&quot;Dorado 7 快速入门。。。。。&quot;);</ClientEvent>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">tools</Property>
+			</MenuItem>
+		</Menu>
+	</View>
+</ViewConfig>

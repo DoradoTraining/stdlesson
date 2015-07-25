@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<Menu id="menu1">
+			<MenuItem>
+				<Property name="caption">书签</Property>
+				<Property name="icon"> url(&gt;skin&gt;common/icons.gif) -100px -0px</Property>
+				<MenuItem>
+					<Property name="caption">隋唐英雄</Property>
+				</MenuItem>
+				<MenuItem>
+					<Property name="caption">何以笙箫默</Property>
+				</MenuItem>
+				<MenuItem>
+					<Property name="caption">花千骨</Property>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">历史记录</Property>
+				<Property name="disabled">true</Property>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">下载内容</Property>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">更多工具</Property>
+				<ClientEvent name="onClick" signature="self,arg">dorado.MessageBox.alert(&quot;您点击的是&quot;+self.get(&quot;caption&quot;));</ClientEvent>
+			</MenuItem>
+			<Separator/>
+			<CheckableMenuItem>
+				<Property name="caption">复选框</Property>
+			</CheckableMenuItem>
+		</Menu>
+		<Button>
+			<Property name="caption">操作</Property>
+			<Property name="menu">menu1</Property>
+		</Button>
+		<ToolBar>
+			<Fill/>
+			<ToolBarButton>
+				<Property name="icon"> url(&gt;skin&gt;common/icons.gif) -100px -0px</Property>
+				<Property name="menu">menu1</Property>
+			</ToolBarButton>
+		</ToolBar>
+		<Tree>
+			<ClientEvent name="onContextMenu" signature="self,arg">this.get(&quot;#menu1&quot;).show({
+  position:{
+    left:arg.event.pageX,
+    top:arg.event.pageY
+  }
+});</ClientEvent>
+			<Node>
+				<Property name="label">节点1</Property>
+				<Node>
+					<Property name="label">子节点1</Property>
+				</Node>
+				<Node>
+					<Property name="label">子节点2</Property>
+				</Node>
+				<Node>
+					<Property name="label">子节点3</Property>
+				</Node>
+			</Node>
+			<Node>
+				<Property name="label">节点2</Property>
+			</Node>
+			<Node>
+				<Property name="label">节点3</Property>
+			</Node>
+		</Tree>
+		<Panel>
+			<Property name="caption">面板</Property>
+			<ClientEvent name="onContextMenu" signature="self,arg">this.get(&quot;#menu1&quot;).show({
+  position:{
+    left:arg.event.pageX,
+    top:arg.event.pageY
+  }
+});</ClientEvent>
+			<Buttons/>
+			<Children/>
+			<Tools/>
+		</Panel>
+	</View>
+</ViewConfig>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="dept" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<SqlReference name="emps">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[emp]</Property>
+					<Property name="parameterColumns">dept_id</Property>
+					<Property name="parameterKeys">DEPT_ID</Property>
+				</SqlReference>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where/>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+		<DataType name="emp" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="EMPLOYEE_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">EMPLOYEE_ID</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="DEPT_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">DEPT_ID</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="EMPLOYEE_NAME">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">EMPLOYEE_NAME</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+			</Columns>
+			<From>
+				<FromTable name="sl_employee">
+					<Property name="dbTable">sl_employee</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_employee</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">DEPT_ID</Property>
+					<Property name="table">sl_employee</Property>
+					<Property name="value">:DEPT_ID</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+	</Model>
+	<View>
+		<DataSet id="dsDept">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[dept]</Property>
+		</DataSet>
+		<DataTree>
+			<Property name="dataSet">dsDept</Property>
+			<BindingConfigs>
+				<BindingConfig>
+					<Property name="labelProperty">dept_name</Property>
+					<Property name="name">dept</Property>
+					<BindingConfig>
+						<Property name="childrenProperty">emps</Property>
+						<Property name="labelProperty">EMPLOYEE_NAME</Property>
+						<Property name="name">emps</Property>
+					</BindingConfig>
+				</BindingConfig>
+			</BindingConfigs>
+		</DataTree>
+	</View>
+</ViewConfig>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<TabControl>
+			<Property name="alwaysShowNavButtons">true</Property>
+			<Property name="currentTab">1</Property>
+			<Property name="showMenuButton">true</Property>
+			<ControlTab>
+				<Property name="caption">标签1</Property>
+				<Property name="width">300</Property>
+				<Label>
+					<Property name="text">1</Property>
+				</Label>
+			</ControlTab>
+			<ControlTab>
+				<Property name="caption">标签2</Property>
+				<Property name="closeable">true</Property>
+				<Property name="width">300</Property>
+				<Label>
+					<Property name="text">2</Property>
+				</Label>
+			</ControlTab>
+			<ControlTab>
+				<Property name="caption">标签3</Property>
+				<Property name="width">200</Property>
+			</ControlTab>
+			<IFrameTab>
+				<Property name="caption">BSDN</Property>
+				<Property name="path">http://bsdn.org/</Property>
+			</IFrameTab>
+		</TabControl>
+	</View>
+</ViewConfig>

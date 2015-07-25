@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="emp" type="sql">
+			<Property name="sqlWhenQuery">select * from sl_employee where 1=1
+#if($EMPLOYEE_NAME &amp;&amp;  $EMPLOYEE_NAME.length() &gt; 0)
+and EMPLOYEE_NAME like :%EMPLOYEE_NAME%
+#end
+#if($SALARY1)
+and SALARY &gt;= :SALARY1
+#end
+#if($SALARY2)
+and SALARY &lt;= :SALARY2
+#end</Property>
+			<Property name="storeTable">sl_employee</Property>
+			<Property name="meta">
+				<Property name="datasource">default</Property>
+				<Property name="generateColumnsSql">select * from sl_employee</Property>
+			</Property>
+			<SqlColumn name="EMPLOYEE_ID">
+				<Property name="dataType">Integer</Property>
+				<Property name="keyGenerator">IDENTITY</Property>
+				<Property name="storeColumn">EMPLOYEE_ID</Property>
+			</SqlColumn>
+			<SqlColumn name="EMPLOYEE_CODE">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="USER_NAME">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="DEPT_ID">
+				<Property name="dataType">Integer</Property>
+			</SqlColumn>
+			<SqlColumn name="EMPLOYEE_NAME">
+				<Property name="dataType">String</Property>
+				<Property name="storeColumn">EMPLOYEE_NAME</Property>
+			</SqlColumn>
+			<SqlColumn name="SEX">
+				<Property name="dataType">Boolean</Property>
+			</SqlColumn>
+			<SqlColumn name="BIRTHDAY">
+				<Property name="dataType">DateTime</Property>
+			</SqlColumn>
+			<SqlColumn name="MARRIED">
+				<Property name="dataType">Boolean</Property>
+			</SqlColumn>
+			<SqlColumn name="SALARY">
+				<Property name="dataType">Double</Property>
+			</SqlColumn>
+			<SqlColumn name="DEGREE">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="EMAIL">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="WEB">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="CMNT">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="IMAGE">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="PASSWORD">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="ANIMAL">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="PHONE">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="MOBILE">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+			<SqlColumn name="POSITION">
+				<Property name="dataType">String</Property>
+			</SqlColumn>
+		</DataType>
+	</Model>
+	<View>
+		<DataSet id="dsEmp">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[emp]</Property>
+			<Property name="pageSize">20</Property>
+		</DataSet>
+		<AutoForm id="formCondition">
+			<Property name="cols">*,*,*</Property>
+			<AutoFormElement layoutConstraint="align:right;">
+				<Property name="label">员工姓名:</Property>
+				<Property name="name">EMPLOYEE_NAME</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement layoutConstraint="align:right;">
+				<Property name="label">工资&gt;=:</Property>
+				<Property name="name">SALARY1</Property>
+				<Editor>
+					<TextEditor>
+						<Property name="dataType">Integer</Property>
+					</TextEditor>
+				</Editor>
+			</AutoFormElement>
+			<AutoFormElement layoutConstraint="align:right;">
+				<Property name="label">工资&lt;=:</Property>
+				<Property name="name">SALARY2</Property>
+				<Editor>
+					<TextEditor>
+						<Property name="dataType">Integer</Property>
+					</TextEditor>
+				</Editor>
+			</AutoFormElement>
+		</AutoForm>
+		<ToolBar>
+			<DataPilot>
+				<Property name="dataSet">dsEmp</Property>
+			</DataPilot>
+			<Separator/>
+			<ToolBarButton>
+				<Property name="caption">查询</Property>
+				<ClientEvent name="onClick" signature="self,arg">var entity = view.get(&quot;#formCondition.entity&quot;);
+if(entity){
+  view.get(&quot;#dsEmp&quot;).set(&quot;parameter&quot;,entity).flushAsync();
+}</ClientEvent>
+			</ToolBarButton>
+			<ToolBarButton>
+				<Property name="action">actionSave</Property>
+				<Property name="caption">保存</Property>
+			</ToolBarButton>
+		</ToolBar>
+		<DataGrid>
+			<Property name="dataSet">dsEmp</Property>
+			<DataColumn>
+				<Property name="property">EMPLOYEE_ID</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">EMPLOYEE_CODE</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">USER_NAME</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">DEPT_ID</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">EMPLOYEE_NAME</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">SEX</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">BIRTHDAY</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">MARRIED</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">SALARY</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">DEGREE</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">EMAIL</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">WEB</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">CMNT</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">IMAGE</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">PASSWORD</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">ANIMAL</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">PHONE</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">MOBILE</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">POSITION</Property>
+				<Editor/>
+			</DataColumn>
+		</DataGrid>
+		<UpdateAction id="actionSave">
+			<Property name="dataResolver">sqlResolver</Property>
+			<UpdateItem>
+				<Property name="dataSet">dsEmp</Property>
+			</UpdateItem>
+		</UpdateAction>
+	</View>
+</ViewConfig>

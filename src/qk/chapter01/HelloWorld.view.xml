@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<Property name="title">Hello World</Property>
+		<Button layoutConstraint="padding:20;">
+			<Property name="caption">Greeting from Dorado7....</Property>
+			<ClientEvent name="onClick" signature="self,arg">dorado.MessageBox.alert(&quot;Hello World&quot;);
+//alert(&quot;Hello World&quot;);</ClientEvent>
+		</Button>
+	</View>
+</ViewConfig>
