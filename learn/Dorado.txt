@@ -36,6 +36,9 @@
   6:AjaxAction
      service:对应后台Dorado @Expose出来的方法 类名#方法名，注意类名首字母小写(spring 管理会自动把bean首字母小写)
      parameter:可以传递静态参数
+     
+  7:MenuTree
+    注意像那种部门，菜单 递归树形式的， escapeOperator 选择isnull.才能只列出顶层菜单。
     
 
   
