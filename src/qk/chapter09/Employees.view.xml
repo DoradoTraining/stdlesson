@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="Employee">
+			<Property name="creationType">com.bstek.dorado.sample.standardlesson.entity.SlEmployee</Property>
+			<PropertyDef name="animal">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="birthday">
+				<Property name="dataType">Date</Property>
+			</PropertyDef>
+			<PropertyDef name="cmnt">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="degree">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="email">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="employeeCode">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="employeeId">
+				<Property name="dataType">int</Property>
+			</PropertyDef>
+			<PropertyDef name="employeeName">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="image">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="married">
+				<Property name="dataType">boolean</Property>
+			</PropertyDef>
+			<PropertyDef name="mobile">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="password">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="phone">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="position">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="salary">
+				<Property name="dataType">BigDecimal</Property>
+			</PropertyDef>
+			<PropertyDef name="sex">
+				<Property name="dataType">boolean</Property>
+			</PropertyDef>
+			<PropertyDef name="userName">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+			<PropertyDef name="web">
+				<Property name="dataType">String</Property>
+			</PropertyDef>
+		</DataType>
+	</Model>
+	<View id="view">
+		<DataSet id="dsEmployee">
+			<Property name="dataProvider">employeeBO#getAllByHql</Property>
+			<Property name="dataType">[Employee]</Property>
+			<Property name="pageSize">20</Property>
+		</DataSet>
+		<AutoForm id="formCondition">
+			<Property name="cols">*,*,*</Property>
+			<AutoFormElement>
+				<Property name="label">员工姓名</Property>
+				<Property name="name">employeeName</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="label">工资&gt;=</Property>
+				<Property name="name">salary1</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="label">工资&lt;=</Property>
+				<Property name="name">salary2</Property>
+				<Editor/>
+			</AutoFormElement>
+		</AutoForm>
+		<ToolBar>
+			<DataPilot>
+				<Property name="dataSet">dsEmployee</Property>
+			</DataPilot>
+			<Separator/>
+			<ToolBarButton>
+				<Property name="caption">查询</Property>
+				<ClientEvent name="onClick" signature="self,arg">var entity = view.get(&quot;#formCondition.entity&quot;);
+var dataset = view.get(&quot;#dsEmployee&quot;);
+dataset.set(&quot;parameter&quot;,entity).flushAsync();</ClientEvent>
+			</ToolBarButton>
+			<ToolBarButton>
+				<Property name="action">actionSalary1</Property>
+				<Property name="caption">前台加薪</Property>
+			</ToolBarButton>
+			<Separator/>
+			<ToolBarButton>
+				<Property name="action">actionSalary2</Property>
+				<Property name="caption">后台加薪</Property>
+			</ToolBarButton>
+			<ToolBarButton>
+				<Property name="action">saveAction</Property>
+				<Property name="caption">保存</Property>
+			</ToolBarButton>
+		</ToolBar>
+		<DataGrid>
+			<Property name="dataSet">dsEmployee</Property>
+			<ClientEvent name="onCreate" signature="self,arg">var OperationCellRenderer = $extend(dorado.widget.grid.SubControlCellRenderer, {
+  createSubControl: function(arg) {
+    var entity = arg.data;
+    return new dorado.widget.Button({
+      caption: &quot;echo to&quot;,
+      onClick: function(arg) {
+        dorado.MessageBox.alert(&quot;Hello&quot; + entity.get(&quot;employeeName&quot;));
+      }
+    })
+  }
+});
+self.set(&quot;#echo.renderer&quot;, new OperationCellRenderer());</ClientEvent>
+			<DataColumn>
+				<Property name="property">animal</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">birthday</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">cmnt</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">degree</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">email</Property>
+				<ClientEvent name="onRenderCell" signature="self,arg">if(!arg.rowType){
+  var div = arg.dom;
+  var email = arg.data.get(&quot;email&quot;);
+  div.innerHTML = &quot;&lt;a href=&apos;mailto://&quot; + email +&quot;&apos;target=&apos;blank&apos;&gt;&quot; + email +&quot;&lt;/a&gt;&quot;;
+}</ClientEvent>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">employeeCode</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">employeeId</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">employeeName</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">image</Property>
+				<ClientEvent name="onRenderCell" signature="self,arg">var entity = arg.data,
+  image = entity.get(&quot;image&quot;)
+if (image) {
+  var path = &quot;&gt;/images/photo/&quot; + image;
+  var url = $url(path);
+  $(arg.dom).empty().xCreate({
+    tagName: &quot;IMG&quot;,
+    src: url,
+    style: {
+      width: &quot;12px&quot;,
+      height: &quot;12px&quot;
+    }
+  });
+  dorado.TipManager.initTip(arg.dom.parentNode, {
+    content: {
+      tagName: &quot;IMG&quot;,
+      src: url,
+      style: &quot;width:128px; height:128px; margin:8px&quot;
+    },
+    arrowDirection: &quot;top&quot;,
+    arrowAlign: &quot;left&quot;
+  });
+} else {
+  $(arg.dom).empty();
+}</ClientEvent>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">married</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">mobile</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">password</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">phone</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">position</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">salary</Property>
+				<ClientEvent name="onRenderCell" signature="self,arg">if(!arg.rowType){
+  var entity = arg.data;
+  var salary = entity.get(&quot;salary&quot;);
+  var div = arg.dom;
+  if(salary&gt;=10000){
+    div.style.color = &quot;red&quot;;
+    div.style.fontWeight = &quot;bold&quot;;
+  }else{
+    div.style.color = &quot;&quot;;
+    div.style.fontWeight = &quot;normal&quot;;
+  }
+  div.innerText = salary;
+}</ClientEvent>
+				<ClientEvent name="onRenderFooterCell" signature="self,arg">arg.dom.innerText = &quot;平均:&quot;
++ dorado.util.Common.formatFloat(arg.data.get(&quot;salary&quot;),&quot;#,##0&quot;);</ClientEvent>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">sex</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">userName</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">web</Property>
+				<Editor/>
+			</DataColumn>
+		</DataGrid>
+		<UpdateAction id="actionSalary1">
+			<Property name="dataResolver">employeeBO#saveAll</Property>
+			<Property name="successMessage">加薪好了</Property>
+			<ClientEvent name="beforeExecute" signature="self,arg">var entity = view.get(&quot;#dsEmployee&quot;).getData(&quot;#&quot;);
+if (entity) {
+  var salary = entity.get(&quot;salary&quot;);
+  salary += 1000;
+  entity.set(&quot;salary&quot;, salary)
+}</ClientEvent>
+			<UpdateItem>
+				<Property name="dataSet">dsEmployee</Property>
+			</UpdateItem>
+		</UpdateAction>
+		<UpdateAction id="actionSalary2">
+			<Property name="dataResolver">employeeBO#raiseSalary</Property>
+			<Property name="successMessage">OK</Property>
+			<UpdateItem>
+				<Property name="dataPath">#</Property>
+				<Property name="dataSet">dsEmployee</Property>
+			</UpdateItem>
+		</UpdateAction>
+		<UpdateAction id="saveAction">
+			<Property name="dataResolver">employeeBO#saveAll</Property>
+			<Property name="successMessage">保存成功</Property>
+			<UpdateItem>
+				<Property name="dataSet">dsEmployee</Property>
+			</UpdateItem>
+		</UpdateAction>
+	</View>
+</ViewConfig>

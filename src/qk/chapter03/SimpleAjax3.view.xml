@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View layout="padding:20;">
+		<Property name="title">SimpleAjax3</Property>
+		<AjaxAction id="ajaxAction3">
+			<Property name="service">simpleAjax#getSystemInfo</Property>
+			<ClientEvent name="onSuccess" signature="self,arg">var info = self.get(&quot;returnValue&quot;);
+dorado.MessageBox.alert(info.product+&quot; &quot;+info.vendor+&quot; &quot;+info.version);</ClientEvent>
+		</AjaxAction>
+		<Button>
+			<Property name="action">ajaxAction3</Property>
+			<Property name="caption">getSystemInfo</Property>
+		</Button>
+	</View>
+</ViewConfig>

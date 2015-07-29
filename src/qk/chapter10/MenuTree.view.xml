@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="menu" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="MENU_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">MENU_ID</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="MENU_NAME">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">MENU_NAME</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="PARENT_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">PARENT_ID</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="REMARKS">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">REMARKS</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="ICON">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">ICON</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="SHOW_ORDER">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">SHOW_ORDER</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="URL">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">URL</Property>
+					<Property name="fromTable">sl_menu</Property>
+				</AutoSqlColumn>
+				<SqlReference name="menus">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[SELF]</Property>
+					<Property name="parameterColumns">MENU_ID</Property>
+					<Property name="parameterKeys">PARENT_ID</Property>
+				</SqlReference>
+			</Columns>
+			<From>
+				<FromTable name="sl_menu">
+					<Property name="dbTable">sl_menu</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_menu</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">PARENT_ID</Property>
+					<Property name="escapeOperator">isnull</Property>
+					<Property name="table">sl_menu</Property>
+					<Property name="value">:PARENT_ID</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy>
+				<Order/>
+			</OrderBy>
+		</DataType>
+	</Model>
+	<View id="view">
+		<DataSet id="dsMenu">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[menu]</Property>
+		</DataSet>
+		<SplitPanel>
+			<Property name="position">200</Property>
+			<MainControl>
+				<AutoForm id="formMenu">
+					<Property name="dataPath">!CURRENT_MENU</Property>
+					<Property name="dataSet">dsMenu</Property>
+					<Property name="dataType">menu</Property>
+					<AutoFormElement>
+						<Property name="property">MENU_ID</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement>
+						<Property name="property">MENU_NAME</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement>
+						<Property name="property">PARENT_ID</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement>
+						<Property name="property">ICON</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement>
+						<Property name="property">SHOW_ORDER</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement>
+						<Property name="property">URL</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement>
+						<Property name="property">REMARKS</Property>
+						<Editor>
+							<TextArea/>
+						</Editor>
+					</AutoFormElement>
+				</AutoForm>
+			</MainControl>
+			<SideControl>
+				<DataTree id="treeMenu">
+					<Property name="currentNodeDataPath">CURRENT_MENU</Property>
+					<Property name="dataSet">dsMenu</Property>
+					<ClientEvent name="onContextMenu" signature="self,arg">this.get(&quot;#menu&quot;).show({
+  position:{
+    left:arg.event.pageX,
+    top:arg.event.pageY
+  }
+});</ClientEvent>
+					<BindingConfigs>
+						<BindingConfig>
+							<Property name="childrenProperty">menus</Property>
+							<Property name="labelProperty">MENU_NAME</Property>
+							<Property name="name">menu</Property>
+							<Property name="recursive">true</Property>
+						</BindingConfig>
+					</BindingConfigs>
+				</DataTree>
+			</SideControl>
+		</SplitPanel>
+		<Menu id="menu">
+			<MenuItem>
+				<Property name="caption">添加同级节点</Property>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">添加子节点</Property>
+			</MenuItem>
+			<MenuItem>
+				<Property name="caption">删除当前节点</Property>
+			</MenuItem>
+		</Menu>
+	</View>
+</ViewConfig>

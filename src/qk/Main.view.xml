@@ -4,6 +4,7 @@
 	<Context/>
 	<Model/>
 	<View>
+		<Property name="title">Dorado7 快速入门。。。。</Property>
 		<ToolBar>
 			<ToolBarLabel>
 				<Property name="text">Dorado7快速入门</Property>
@@ -15,8 +16,53 @@
 			</ToolBarButton>
 		</ToolBar>
 		<SplitPanel>
-			<MainControl/>
-			<SideControl/>
+			<MainControl>
+				<TabControl id="tabControl">
+				</TabControl>
+			</MainControl>
+			<SideControl>
+				<Tree>
+					<ClientEvent name="onDataRowClick" signature="self,arg">var tab = {};
+with(self.get(&quot;currentNode&quot;)) {
+  tab.$type = &quot;IFrame&quot;;
+  tab.caption = get(&quot;label&quot;);
+  tab.path = get(&quot;userData&quot;);
+  tab.name = get(&quot;label&quot;);
+  tab.closeable = true;
+}
+
+// var newTab = this.get(&quot;#tabControl&quot;).addTab(tab);
+ // this.get(&quot;#tabControl&quot;).set(&quot;currentTab&quot;,newTab);
+
+if(tab.path){
+  with(this.get(&quot;#tabControl&quot;)){
+    var currentTab = getTab(tab.name);
+    if(currentTab){
+      tab = currentTab;
+    }else{
+      tab = addTab(tab);
+    }
+    set(&quot;currentTab&quot;,tab);
+  }
+}</ClientEvent>
+					<Node>
+						<Property name="label">chapter01</Property>
+						<Node>
+							<Property name="label">HelloWorld</Property>
+							<Property name="userData">qk.chapter01.HelloWorld.d</Property>
+						</Node>
+					</Node>
+					<Node>
+						<Property name="label">chapter02</Property>
+					</Node>
+					<Node>
+						<Property name="label">chapter03</Property>
+					</Node>
+					<Node>
+						<Property name="label">chapter04</Property>
+					</Node>
+				</Tree>
+			</SideControl>
 		</SplitPanel>
 		<Menu id="menu1">
 			<MenuItem>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<Dialog>
+			<Property name="buttonAlign">right</Property>
+			<Property name="caption">欢迎登陆</Property>
+			<Property name="visible">true</Property>
+			<Buttons>
+				<Button>
+					<Property name="action">formSubmitAction</Property>
+					<Property name="caption">登陆</Property>
+					<Property name="width">80</Property>
+					<ClientEvent name="onClick" signature="self,arg">var action = view.get(&quot;#formSubmitAction&quot;);
+var entity = view.get(&quot;#formLogin.entity&quot;);
+//action.set(&quot;parameter&quot;,entity);
+action.execute();</ClientEvent>
+				</Button>
+				<Button>
+					<Property name="caption">重置</Property>
+					<Property name="width">80</Property>
+					<ClientEvent name="onClick" signature="self,arg">var entity = view.get(&quot;#formLogin.entity&quot;);
+entity.set(&quot;user&quot;,&quot;&quot;);
+entity.set(&quot;password&quot;,&quot;&quot;);</ClientEvent>
+				</Button>
+			</Buttons>
+			<Children>
+				<AutoForm id="formLogin">
+					<Property name="cols">*</Property>
+					<Property name="createPrivateDataSet">true</Property>
+					<Property name="labelAlign">right</Property>
+					<Property name="labelSeparator">:</Property>
+					<Property name="labelWidth">60</Property>
+					<AutoFormElement layoutConstraint="align:right;">
+						<Property name="label">用户名</Property>
+						<Property name="name">user</Property>
+						<Property name="showHint">false</Property>
+						<Editor/>
+					</AutoFormElement>
+					<AutoFormElement layoutConstraint="align:right;">
+						<Property name="label">密码</Property>
+						<Property name="name">password</Property>
+						<Property name="showHint">false</Property>
+						<Editor>
+							<PasswordEditor>
+								<ClientEvent name="onKeyDown" signature="self,arg">var keyCode = arg.keyCode;
+if(keyCode == 13){
+  self.post();
+  view.get(&quot;#formSubmitAction&quot;).execute();
+}</ClientEvent>
+							</PasswordEditor>
+						</Editor>
+					</AutoFormElement>
+				</AutoForm>
+			</Children>
+			<Tools/>
+		</Dialog>
+		<FormSubmitAction id="formSubmitAction">
+			<Property name="action">&gt;/loginTest.do</Property>
+			<Property name="method">get</Property>
+			<ClientEvent name="beforeExecute" signature="self,arg">var entity = view.get(&quot;#formLogin.entity&quot;);
+var user = entity.get(&quot;user&quot;);
+var password = entity.get(&quot;password&quot;);
+
+if(!user || !password){
+  dorado.MessageBox.alert(&quot;请输入用户名和密码&quot;,{icon:&quot;ERROR&quot;});
+  arg.processDefault = false;
+}else{
+  self.set(&quot;parameter&quot;,entity);
+}
+</ClientEvent>
+		</FormSubmitAction>
+	</View>
+</ViewConfig>

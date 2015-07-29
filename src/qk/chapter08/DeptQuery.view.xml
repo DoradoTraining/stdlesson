@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="deptInfo" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">dept_name</Property>
+					<Property name="operator">%like%</Property>
+					<Property name="sqlType">VARCHAR-String</Property>
+					<Property name="table">sl_dept</Property>
+					<Property name="value">:DEPT_NAME</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+	</Model>
+	<View>
+		<DataSet id="dsDept">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[deptInfo]</Property>
+		</DataSet>
+		<Container layout="Form cols:*,*;">
+			<TextEditor id="DEPT_NAME">
+				<Property name="width">200</Property>
+			</TextEditor>
+			<Button>
+				<Property name="caption">查询</Property>
+				<ClientEvent name="onClick" signature="self,arg">var deptName = view.get(&quot;#DEPT_NAME.value&quot;);
+view.get(&quot;#dsDept&quot;).set(&quot;parameter&quot;, {
+  DEPT_NAME: deptName
+}).flushAsync();</ClientEvent>
+			</Button>
+		</Container>
+		<DataGrid>
+			<Property name="dataSet">dsDept</Property>
+			<DataColumn>
+				<Property name="property">dept_id</Property>
+				<Editor/>
+			</DataColumn>
+			<DataColumn>
+				<Property name="property">dept_name</Property>
+				<Editor/>
+			</DataColumn>
+		</DataGrid>
+	</View>
+</ViewConfig>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<Panel listener="spring:listener1#onViewInit" layout="Anchor ">
+			<Buttons/>
+			<Children/>
+			<Tools/>
+		</Panel>
+	</View>
+</ViewConfig>

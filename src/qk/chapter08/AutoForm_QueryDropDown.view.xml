@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="employee" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="EMPLOYEE_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">EMPLOYEE_ID</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="EMPLOYEE_CODE">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">EMPLOYEE_CODE</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="USER_NAME">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">USER_NAME</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="DEPT_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">DEPT_ID</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="EMPLOYEE_NAME">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">EMPLOYEE_NAME</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="SEX">
+					<Property name="dataType">Boolean</Property>
+					<Property name="fromColumn">SEX</Property>
+					<Property name="fromTable">sl_employee</Property>
+					<Property name="mapping">
+						<Property name="mapValues">
+							<Collection>
+								<Entity>
+									<Property name="key">true</Property>
+									<Property name="value">男</Property>
+								</Entity>
+								<Entity>
+									<Property name="key">false</Property>
+									<Property name="value">女</Property>
+								</Entity>
+							</Collection>
+						</Property>
+					</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="BIRTHDAY">
+					<Property name="dataType">DateTime</Property>
+					<Property name="fromColumn">BIRTHDAY</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="MARRIED">
+					<Property name="dataType">Boolean</Property>
+					<Property name="fromColumn">MARRIED</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="SALARY">
+					<Property name="dataType">Double</Property>
+					<Property name="fromColumn">SALARY</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="DEGREE">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">DEGREE</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="EMAIL">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">EMAIL</Property>
+					<Property name="fromTable">sl_employee</Property>
+					<Validator type="regExp">
+						<Property name="whiteRegExp">\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*</Property>
+					</Validator>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="WEB">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">WEB</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="CMNT">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">CMNT</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="IMAGE">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">IMAGE</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="PASSWORD">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">PASSWORD</Property>
+					<Property name="fromTable">sl_employee</Property>
+					<Property name="required">true</Property>
+				</AutoSqlColumn>
+				<PropertyDef name="PASSWORD2">
+					<Property name="required">true</Property>
+					<Validator type="custom">
+						<ClientEvent name="onValidate" signature="self,arg">var password = arg.entity.get(&quot;PASSWORD&quot;);
+var password2 = arg.data;
+
+if(password){
+  if(password!=password2){
+    throw new dorado.Exception(&quot;两次密码不一致，请重新输入！&quot;);
+  }
+}</ClientEvent>
+					</Validator>
+				</PropertyDef>
+				<AutoSqlColumn name="ANIMAL">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">ANIMAL</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="PHONE">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">PHONE</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="MOBILE">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">MOBILE</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="POSITION">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">POSITION</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+			</Columns>
+			<From>
+				<FromTable name="sl_employee">
+					<Property name="dbTable">sl_employee</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_employee</Property>
+					</Property>
+					<Join name="sl_dept">
+						<Property name="dbTable">sl_dept</Property>
+						<Property name="leftColumns">DEPT_ID</Property>
+						<Property name="operator">left join</Property>
+						<Property name="rightColumns">dept_id</Property>
+						<Property name="meta">
+							<Property name="datasource">default</Property>
+							<Property name="namespace">standardlesson</Property>
+							<Property name="table">sl_dept</Property>
+						</Property>
+					</Join>
+				</FromTable>
+			</From>
+			<Where/>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+		<DataType name="deptInfo" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">dept_name</Property>
+					<Property name="operator">%like%</Property>
+					<Property name="sqlType">VARCHAR-String</Property>
+					<Property name="table">sl_dept</Property>
+					<Property name="value">:DEPT_NAME</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+	</Model>
+	<View id="view">
+		<Property name="packages">font-awesome</Property>
+		<DataSet id="dsEmp">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[employee]</Property>
+			<Property name="pageSize">1</Property>
+		</DataSet>
+		<DataSet id="dsDept">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[deptInfo]</Property>
+		</DataSet>
+		<DataPilot>
+			<Property name="dataSet">dsEmp</Property>
+			<Property name="itemCodes">&lt;,&gt;</Property>
+		</DataPilot>
+		<AutoForm>
+			<Property name="cols">*,*,*</Property>
+			<Property name="dataSet">dsEmp</Property>
+			<Property name="dataType">employee</Property>
+			<Property name="labelAlign">right</Property>
+			<Property name="labelSeparator">:</Property>
+			<Property name="labelWidth">120</Property>
+			<AutoFormElement>
+				<Property name="property">EMPLOYEE_ID</Property>
+				<Property name="readOnly">true</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">EMPLOYEE_CODE</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">USER_NAME</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">DEPT_ID</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">dept_name</Property>
+				<Property name="trigger">dropdownDept</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">EMPLOYEE_NAME</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">SEX</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">BIRTHDAY</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">MARRIED</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">SALARY</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="editable">false</Property>
+				<Property name="property">DEGREE</Property>
+				<Property name="trigger">dropdownDegree</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="label">电子邮箱</Property>
+				<Property name="property">EMAIL</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement layoutConstraint="colSpan:3;">
+				<Property name="label">网址</Property>
+				<Property name="property">WEB</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement layoutConstraint="colSpan:3;">
+				<Property name="label">备注</Property>
+				<Property name="property">CMNT</Property>
+				<Editor>
+					<TextArea>
+						<Property name="height">100</Property>
+					</TextArea>
+				</Editor>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">IMAGE</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="label">密码</Property>
+				<Property name="property">PASSWORD</Property>
+				<Editor>
+					<PasswordEditor/>
+				</Editor>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="label">确认密码</Property>
+				<Property name="name">PASSWORD2</Property>
+				<Editor>
+					<PasswordEditor/>
+				</Editor>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">ANIMAL</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">PHONE</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">MOBILE</Property>
+				<Editor/>
+			</AutoFormElement>
+			<AutoFormElement>
+				<Property name="property">POSITION</Property>
+				<Editor/>
+			</AutoFormElement>
+		</AutoForm>
+		<ListDropDown id="dropdownDegree">
+			<Property name="autoOpen">true</Property>
+			<Property name="items">
+				<Collection>
+					<Value>小学</Value>
+					<Value>初中</Value>
+					<Value>高中</Value>
+					<Value>本科</Value>
+					<Value>硕士</Value>
+					<Value>博士</Value>
+					<Value>博士后</Value>
+				</Collection>
+			</Property>
+		</ListDropDown>
+		<CustomDropDown id="dropdownDept">
+			<Property name="assignmentMap">DEPT_ID=dept_id,dept_name=dept_name</Property>
+			<Property name="height">300</Property>
+			<Container>
+				<Container layout="Form cols:*,60;">
+					<TextEditor id="DEPT_NAME">
+					</TextEditor>
+					<Button>
+						<Property name="caption">查询</Property>
+						<ClientEvent name="onClick" signature="self,arg">var deptName = view.get(&quot;#DEPT_NAME.value&quot;);
+view.get(&quot;#dsDept&quot;).set(&quot;parameter&quot;, {
+  DEPT_NAME: deptName
+}).flushAsync();</ClientEvent>
+					</Button>
+				</Container>
+				<DataGrid>
+					<Property name="dataSet">dsDept</Property>
+					<Property name="readOnly">true</Property>
+					<ClientEvent name="onDataRowDoubleClick" signature="self,arg">var dropdown = dorado.widget.DropDown.findDropDown(self);
+var entity = view.get(&quot;#dsDept&quot;).getData(&quot;#&quot;);
+dropdown.close(entity);</ClientEvent>
+					<DataColumn>
+						<Property name="align">center</Property>
+						<Property name="property">dept_id</Property>
+						<Property name="width">60</Property>
+						<Editor/>
+					</DataColumn>
+					<DataColumn>
+						<Property name="property">dept_name</Property>
+						<Editor/>
+					</DataColumn>
+				</DataGrid>
+			</Container>
+		</CustomDropDown>
+	</View>
+</ViewConfig>

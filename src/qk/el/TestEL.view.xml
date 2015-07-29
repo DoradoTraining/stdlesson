@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<Button>
+			<Property name="caption">${myutil.getToday()}</Property>
+		</Button>
+		<Button>
+			<Property name="caption">${UserEL.getUserId()}</Property>
+		</Button>
+	</View>
+</ViewConfig>

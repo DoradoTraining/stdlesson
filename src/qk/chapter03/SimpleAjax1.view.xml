@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model/>
+	<View>
+		<AjaxAction id="ajaxAction1">
+			<Property name="parameter">helloworld</Property>
+			<Property name="service">simpleAjax#toUpperCase</Property>
+			<ClientEvent name="onSuccess" signature="self,arg">dorado.MessageBox.alert(self.get(&quot;returnValue&quot;));</ClientEvent>
+		</AjaxAction>
+		<Button>
+			<Property name="action">ajaxAction1</Property>
+			<Property name="caption">to Upper Case</Property>
+			<Property name="width">200</Property>
+		</Button>
+	</View>
+</ViewConfig>

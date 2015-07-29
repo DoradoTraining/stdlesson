@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="dept" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<SqlReference name="depts">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[SELF]</Property>
+					<Property name="parameterColumns">dept_id</Property>
+					<Property name="parameterKeys">parent_id</Property>
+				</SqlReference>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">parent_id</Property>
+					<Property name="escapeOperator">isnull</Property>
+					<Property name="table">sl_dept</Property>
+					<Property name="value">:parent_id</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+		<DataType name="dept2" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<SqlReference name="employees">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[employee2]</Property>
+					<Property name="parameterColumns">dept_id</Property>
+					<Property name="parameterKeys">dept_id</Property>
+				</SqlReference>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where/>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+		<DataType name="employee2" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="EMPLOYEE_ID">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">EMPLOYEE_ID</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="EMPLOYEE_NAME">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">EMPLOYEE_NAME</Property>
+					<Property name="fromTable">sl_employee</Property>
+				</AutoSqlColumn>
+			</Columns>
+			<From>
+				<FromTable name="sl_employee">
+					<Property name="dbTable">sl_employee</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_employee</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">DEPT_ID</Property>
+					<Property name="table">sl_employee</Property>
+					<Property name="value">:dept_id</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+		<DataType name="dept3" type="autoSql">
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<SqlReference name="depts">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[SELF]</Property>
+					<Property name="parameterColumns">dept_id</Property>
+					<Property name="parameterKeys">parent_id</Property>
+				</SqlReference>
+				<SqlReference name="employees">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[employee2]</Property>
+					<Property name="parameterColumns">dept_id</Property>
+					<Property name="parameterKeys">dept_id</Property>
+				</SqlReference>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">parent_id</Property>
+					<Property name="escapeOperator">isnull</Property>
+					<Property name="table">sl_dept</Property>
+					<Property name="value">:parent_id</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+	</Model>
+	<View layout="Hbox ">
+		<DataSet id="dsDept">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[dept]</Property>
+		</DataSet>
+		<DataSet id="dsDept2">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[dept2]</Property>
+		</DataSet>
+		<DataSet id="dsDept3">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[dept3]</Property>
+		</DataSet>
+		<Container>
+			<Property name="width">300</Property>
+			<ToolBar>
+				<ToolBarButton>
+					<Property name="caption">显示被选节点</Property>
+					<ClientEvent name="onClick" signature="self,arg">var nodes = view.get(&quot;#tree1&quot;).getCheckedNodes();
+var names = [];
+nodes.each(function(node){
+  var name = node.get(&quot;data&quot;).get(&quot;dept_name&quot;);
+	names.push(name);
+});
+
+var message = names.join(&quot;,&quot;);
+dorado.MessageBox.alert(&quot;被选中：&quot; + message);</ClientEvent>
+				</ToolBarButton>
+			</ToolBar>
+			<DataTree id="tree1">
+				<Property name="dataSet">dsDept</Property>
+				<BindingConfigs>
+					<BindingConfig>
+						<Property name="checkable">true</Property>
+						<Property name="childrenProperty">depts</Property>
+						<Property name="labelProperty">dept_name</Property>
+						<Property name="name">dept</Property>
+						<Property name="recursive">true</Property>
+					</BindingConfig>
+				</BindingConfigs>
+			</DataTree>
+		</Container>
+		<DataTree id="tree2">
+			<Property name="dataSet">dsDept2</Property>
+			<Property name="width">300</Property>
+			<BindingConfigs>
+				<BindingConfig>
+					<Property name="labelProperty">dept_name</Property>
+					<Property name="name">dept</Property>
+					<BindingConfig>
+						<Property name="checkable">true</Property>
+						<Property name="childrenProperty">employees</Property>
+						<Property name="labelProperty">EMPLOYEE_NAME</Property>
+						<Property name="name">employees</Property>
+					</BindingConfig>
+				</BindingConfig>
+			</BindingConfigs>
+		</DataTree>
+		<DataTree id="tree3">
+			<Property name="dataSet">dsDept3</Property>
+			<Property name="width">300</Property>
+			<BindingConfigs>
+				<BindingConfig>
+					<Property name="childrenProperty">depts</Property>
+					<Property name="labelProperty">dept_name</Property>
+					<Property name="name">dept</Property>
+					<Property name="recursive">true</Property>
+					<BindingConfig>
+						<Property name="childrenProperty">employees</Property>
+						<Property name="labelProperty">EMPLOYEE_NAME</Property>
+						<Property name="name">employees</Property>
+					</BindingConfig>
+				</BindingConfig>
+			</BindingConfigs>
+		</DataTree>
+	</View>
+</ViewConfig>

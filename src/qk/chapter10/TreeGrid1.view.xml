@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+	<Arguments/>
+	<Context/>
+	<Model>
+		<DataType name="dept" type="autoSql">
+			<Property name="storeFromTable">sl_dept</Property>
+			<Property name="storeListener">qk.chapter10.DeptStoreListener</Property>
+			<Columns>
+				<AutoSqlColumn name="dept_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">dept_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+					<Property name="keyGenerator">IDENTITY</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="parent_id">
+					<Property name="dataType">Integer</Property>
+					<Property name="fromColumn">parent_id</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<AutoSqlColumn name="dept_name">
+					<Property name="dataType">String</Property>
+					<Property name="fromColumn">dept_name</Property>
+					<Property name="fromTable">sl_dept</Property>
+				</AutoSqlColumn>
+				<SqlReference name="depts">
+					<Property name="dataProvider">sqlProvider</Property>
+					<Property name="dataType">[dept]</Property>
+					<Property name="parameterColumns">dept_id</Property>
+					<Property name="parameterKeys">pid</Property>
+				</SqlReference>
+			</Columns>
+			<From>
+				<FromTable name="sl_dept">
+					<Property name="dbTable">sl_dept</Property>
+					<Property name="meta">
+						<Property name="datasource">default</Property>
+						<Property name="namespace">standardlesson</Property>
+						<Property name="table">sl_dept</Property>
+					</Property>
+				</FromTable>
+			</From>
+			<Where>
+				<CompareCondition>
+					<Property name="column">parent_id</Property>
+					<Property name="escapeOperator">isnull</Property>
+					<Property name="table">sl_dept</Property>
+					<Property name="value">:pid</Property>
+				</CompareCondition>
+			</Where>
+			<GroupBy/>
+			<OrderBy/>
+		</DataType>
+	</Model>
+	<View>
+		<DataSet id="dsDept">
+			<Property name="dataProvider">sqlProvider</Property>
+			<Property name="dataType">[dept]</Property>
+		</DataSet>
+		<ToolBar>
+			<ToolBarButton>
+				<Property name="action">actionSave</Property>
+				<Property name="caption">保存</Property>
+			</ToolBarButton>
+			<Separator/>
+			<ToolBarButton>
+				<Property name="caption">添加同级节点</Property>
+				<ClientEvent name="onClick" signature="self,arg">var treeGrid = view.get(&quot;#treeGrid&quot;),currentEntity = treeGrid.get(&quot;currentEntity&quot;);
+if(currentEntity){
+  currentEntity.createBrother({
+    dept_name:&quot;&lt;新节点&gt;&quot;
+  })
+}</ClientEvent>
+			</ToolBarButton>
+			<ToolBarButton>
+				<Property name="caption">添加子节点</Property>
+				<ClientEvent name="onClick" signature="self,arg">var treeGrid = view.get(&quot;#treeGrid&quot;),currentEntity = treeGrid.get(&quot;currentEntity&quot;);
+if(currentEntity){
+  var currentNode = treeGrid.get(&quot;currentNode&quot;);
+  if(!currentNode.get(&quot;expanded&quot;)){
+    currentNode.expand(function(){
+      currentEntity.createChild(&quot;depts&quot;,{
+        dept_name:&quot;&lt;新子节点&gt;&quot;
+      })
+    });
+  }else{
+    currentEntity.createChild(&quot;depts&quot;,{
+      dept_name:&quot;&lt;新子节点&gt;&quot;
+    });
+  }
+}</ClientEvent>
+			</ToolBarButton>
+			<ToolBarButton>
+				<Property name="caption">删除</Property>
+				<ClientEvent name="onClick" signature="self,arg">var currentEntity = view.get(&quot;#treeGrid.currentEntity&quot;);
+if(currentEntity){
+  currentEntity.remove();
+  view.get(&quot;#actionSave&quot;).execute();
+}</ClientEvent>
+			</ToolBarButton>
+		</ToolBar>
+		<DataTreeGrid id="treeGrid">
+			<Property name="dataSet">dsDept</Property>
+			<Property name="dragTags">dept</Property>
+			<Property name="draggable">true</Property>
+			<Property name="droppable">true</Property>
+			<Property name="droppableTags">dept</Property>
+			<Property name="treeColumn">dept_name</Property>
+			<ClientEvent name="onDraggingSourceDrop" signature="self,arg">var treeGrid = view.get(&quot;#treeGrid&quot;),
+  currentNode = treeGrid.get(&quot;currentNode&quot;),
+  currentEntity = currentNode.get(&quot;data&quot;);
+var level = currentNode.get(&quot;level&quot;);
+
+if (level == 1) {
+  currentEntity.set(&quot;parent_id&quot;, null);
+  view.get(&quot;#actionSave&quot;).execute();
+} else if (level &gt; 1) {
+  var parentNode = currentNode.get(&quot;parent&quot;)
+  var parentEntity = parentNode.get(&quot;data&quot;);
+  var parentId = parentEntity.get(&quot;dept_id&quot;);
+  currentEntity.set(&quot;parent_id&quot;, parentId);
+  view.get(&quot;#actionSave&quot;).execute();
+}</ClientEvent>
+			<BindingConfigs>
+				<BindingConfig>
+					<Property name="childrenProperty">depts</Property>
+					<Property name="name">dept</Property>
+					<Property name="recursive">true</Property>
+				</BindingConfig>
+			</BindingConfigs>
+			<Columns>
+				<DataColumn>
+					<Property name="name">dept_name</Property>
+					<Editor/>
+				</DataColumn>
+				<DataColumn>
+					<Property name="name">dept_id</Property>
+					<Property name="readOnly">true</Property>
+					<Editor/>
+				</DataColumn>
+				<DataColumn>
+					<Property name="name">parent_id</Property>
+					<Property name="readOnly">true</Property>
+					<Editor/>
+				</DataColumn>
+			</Columns>
+		</DataTreeGrid>
+		<UpdateAction id="actionSave">
+			<Property name="dataResolver">sqlResolver</Property>
+			<Property name="successMessage">保存成功</Property>
+			<UpdateItem>
+				<Property name="dataSet">dsDept</Property>
+			</UpdateItem>
+		</UpdateAction>
+	</View>
+</ViewConfig>
