@@ -1,1 +1,41 @@
-﻿
+0:font-awesome 小图标,添加到view属性的package下
+1:SplitPanel 分隔栏，可以分为主副区域两部分
+  direction 改变分割栏的位置
+  position 主副分割位置 minPosition maxPosition 最小 最大 拖动位置设定
+  collapsed true:一开始就处于收缩状态  false  开始处于打开状态
+2:TabControl 标签页  alwaysShowNavButtons：会默认一直显示标签滚动栏，不然只有页面宽度不够的时候才会出现。
+                     currentTab 默认显示哪个tab
+                     showMenuButton 列出所有的标签页
+  CotrolTab 可设置多个标签页
+            caption 标题
+            closeable 标签页可以关闭
+            disable true 禁用标签页
+            tabMinWidth 标签页最小宽度
+            tabPlacement 标签页的位置设定
+  IFrameTab 引用其他网址
+            caption 标题
+            path:引用网址的url
+  3:menu 默认是不可见对象，必须与可见对象相互关联，才能显示出来
+    menuItem 子菜单，树状结构，可以在子菜单下继续添加子菜单
+    例如在button空间里有个menu属性，可以关联一个menu,使menu可见
+    separator 分隔栏
+    checkableMenuItem 复选框
+  4:ToolBar 
+      Fill 把剩余空间填空满，可以布局使用
+      ToolBarButton 具有menu属性,可以绑定菜单
+  5:Tree
+    Node 节点，还可以添加子节点
+    右键点击树，显示菜单
+    onContextMenu(self,arg)
+    this.get("#menuID").show({
+      position:{
+        left:arg.event.pageX,
+        top:arg.event.pageY
+      }
+    });
+  6:AjaxAction
+     service:对应后台Dorado @Expose出来的方法 类名#方法名，注意类名首字母小写(spring 管理会自动把bean首字母小写)
+     parameter:可以传递静态参数
+    
+
+  
