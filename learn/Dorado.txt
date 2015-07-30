@@ -39,6 +39,18 @@
      
   7:MenuTree
     注意像那种部门，菜单 递归树形式的， escapeOperator 选择isnull.才能只列出顶层菜单。
-    
+
+
+学习
+BDF2项目主页：http://bsdn.org/projects/bdf
+BDF2文档：http://wiki.bsdn.org/pages/viewpage.action?pageId=20742315
+1.项目创建与配置
+2.BDF2-ORM
+3.BDF2-CORE
+
+工作流：http://bsdn.org/projects/uflo
+报表：http://bsdn.org/projects/ureport
+
+文件上传：http://bsdn.org/projects/dorado-uploader-addon 
 
   
