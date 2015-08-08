@@ -39,6 +39,9 @@
      
   7:MenuTree
     注意像那种部门，菜单 递归树形式的， escapeOperator 选择isnull.才能只列出顶层菜单。
+    
+  8:文本域的验证
+    要去model里面的字段中加验证
 
 
 学习
